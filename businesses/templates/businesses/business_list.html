@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Business List{% endblock %}
+
+{% block content %}
+    <h2>Business List</h2>
+    <div class="business-list">
+        {% if object_list %}
+            <ul>
+                {% for business in object_list %}
+                    <li>
+                        <h3><a href="{% url 'business_detail' business.pk %}">{{ business.name }}</a></h3>
+                        <p>{{ business.description|slice:":200" }}{% if business.description|length > 200 %}...{% endif %}</p>
+                        <p><strong>Category:</strong> {{ business.category.name }}</p>
+                        <p><a href="{% url 'business_edit' business.pk %}">Edit</a> | <a href="{% url 'business_delete' business.pk %}">Delete</a></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No businesses found.</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'business_add' %}" class="btn">Add New Business</a>
+{% endblock %}

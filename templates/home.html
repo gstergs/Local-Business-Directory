@@ -1,0 +1,50 @@
+{% extends 'base_generic.html' %}
+
+{% load static %}  <!-- Add this line to load static template tag -->
+
+{% block content %}
+  <h1>Welcome to My Business Directory</h1>
+  <p>Your one-stop shop for finding local businesses. Explore our directory to discover various services and products offered in your area.</p>
+  
+  <section>
+    <h2>Featured Businesses</h2>
+    <ul>
+      {% for business in featured_businesses %}
+        <li>
+          <a href="{% url 'business_detail' business.id %}">
+            <h3>{{ business.name }}</h3>
+            <p>{{ business.description|slice:":100" }}...</p>
+          </a>
+        </li>
+      {% empty %}
+        <li>No featured businesses at the moment.</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Latest Reviews</h2>
+    <ul>
+      {% for review in latest_reviews %}
+        <li>
+          <strong>{{ review.business.name }}:</strong> {{ review.rating }} - "{{ review.comment }}"
+        </li>
+      {% empty %}
+        <li>No reviews yet.</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Categories</h2>
+    <ul>
+      {% for category in categories %}
+        <li>
+          <a href="{% url 'business_list_by_category' category.id %}">{{ category.name }}</a>
+        </li>
+      {% empty %}
+        <li>No categories available.</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}
