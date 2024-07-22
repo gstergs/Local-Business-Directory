@@ -8,9 +8,7 @@ from django.views.decorators.http import require_POST
 from .models import Business, Review, Category
 from .forms import ReviewForm
 
-# Function-based view for the home page
 def home(request):
-    # Here you might want to pass some context if needed
     return render(request, 'home.html')
 
 class BusinessListView(generic.ListView):
@@ -31,7 +29,7 @@ class BusinessDetailView(generic.DetailView):
 class BusinessCreateView(LoginRequiredMixin, generic.CreateView):
     model = Business
     fields = ['name', 'description', 'category', 'image']
-    template_name = 'businesses/business_form.html'
+    template_name = 'admin/business_form.html'  # Updated path to 'admin'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -40,22 +38,20 @@ class BusinessCreateView(LoginRequiredMixin, generic.CreateView):
 class BusinessUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Business
     fields = ['name', 'description', 'category', 'image']
-    template_name = 'businesses/business_form.html'
+    template_name = 'admin/business_form.html'  # Updated path to 'admin'
 
     def test_func(self):
         business = self.get_object()
-        # Use is_staff if you want to check for admin rights
-        return self.request.user == business.owner or self.request.user.is_staff
+        return self.request.user == business.owner or self.request.user.is_superuser
 
 class BusinessDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Business
     success_url = '/'
-    template_name = 'businesses/business_confirm_delete.html'
+    template_name = 'admin/business_confirm_delete.html'  # Updated path to 'admin'
 
     def test_func(self):
         business = self.get_object()
-        # Use is_staff if you want to check for admin rights
-        return self.request.user == business.owner or self.request.user.is_staff
+        return self.request.user == business.owner or self.request.user.is_superuser
 
 @method_decorator(require_POST, name='dispatch')
 class SubmitRatingView(LoginRequiredMixin, generic.View):

@@ -1,15 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
-from businesses import views as business_views  # Import the views from your app
+from businesses import views as business_views
 
 urlpatterns = [
     # Admin interface
     path('admin/', admin.site.urls),
 
     # Root URL configuration
-    path('', business_views.BusinessListView.as_view(), name='home'),  # Home page
+    path('', business_views.BusinessListView.as_view(), name='home'),
 
-    # URLs for the 'accounts' app
+    # Authentication URLs
     path('accounts/', include('accounts.urls')),
 
     # URLs for the 'businesses' app
