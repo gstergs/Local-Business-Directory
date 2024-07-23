@@ -5,7 +5,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security settings
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-secret-key')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-secret-key')  # Ensure this is secure in production
 DEBUG = True  # Set to False in production
 ALLOWED_HOSTS = []  # Add allowed hosts for production
 
@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'crispy_bootstrap4',
     'businesses',
     'accounts',
 ]
@@ -34,7 +35,7 @@ MIDDLEWARE = [
 ]
 
 # URL configuration
-ROOT_URLCONF = 'Local_business_directory.urls'  # Ensure case matches your project name
+ROOT_URLCONF = 'Local_business_directory.urls'
 
 # Templates configuration
 TEMPLATES = [
@@ -54,7 +55,7 @@ TEMPLATES = [
 ]
 
 # WSGI application
-WSGI_APPLICATION = 'Local_business_directory.wsgi.application'  # Ensure case matches your project name
+WSGI_APPLICATION = 'Local_business_directory.wsgi.application'
 
 # Database configuration
 DATABASES = {

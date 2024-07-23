@@ -5,35 +5,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Business Directory{% endblock %}</title>
+    <title>{% block title %}Admin Dashboard - My Business Directory{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <header class="bg-dark text-white py-3">
+    <header class="bg-dark text-white py-3"> 
         <div class="container">
-            <h1 class="d-inline">My Business Directory</h1>
+            <h1 class="d-inline">Admin Dashboard</h1>
             <nav class="float-right">
                 <ul class="nav">
                     <li class="nav-item"><a class="nav-link text-white" href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="{% url 'businesses:business_list' %}">Business List</a></li>
-
+                    
                     {% if user.is_authenticated %}
+                        {% if user.is_superuser %} 
+                            <li class="nav-item"><a class="nav-link text-white" href="{% url 'admin_businesses:admin_business_list' %}">Business List</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="{% url 'admin_businesses:admin_business_create' %}">Add Business</a></li>
+                        {% endif %}
                         <li class="nav-item">
                             <form method="post" action="{% url 'accounts:logout' %}" class="form-inline">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-link text-white">Logout</button>
                             </form>
                         </li>
-                        {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="{% url 'admin_businesses:admin_business_list' %}">Admin Dashboard</a>
-                            </li>
-                        {% endif %}
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{% url 'accounts:login' %}" data-toggle="modal" data-target="#loginModal">Login</a>
+                            <a class="nav-link text-white" href="{% url 'login' %}" data-toggle="modal" data-target="#loginModal">Login</a>
                         </li>
+                        
                     {% endif %}
                 </ul>
             </nav>
@@ -48,31 +48,28 @@
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 My Business Directory</p>
     </footer>
-
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {% include 'registration/login.html' %}
-                </div>
-                <div class="modal-footer">
-                    <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up here</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% include 'registration/login.html' %}
+        </div>
+        <div class="modal-footer">
+          <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up here</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <script src="{% static 'js/script.js' %}"></script> 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 </body>
-Dashboard
 </html>
-dsa 

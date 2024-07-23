@@ -1,0 +1,73 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+    <h2>Business List</h2>
+
+    <form method="get" class="mb-3">
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <input type="text" class="form-control" name="search" placeholder="Search by name...">
+            </div>
+            <div class="col-auto">
+                <select class="form-control" name="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for business in businesses %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if business.image %}
+                        <img src="{{ business.image.url }}" class="card-img-top" alt="{{ business.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#" class="business-detail-link" data-id="{{ business.pk }}">{{ business.name }}</a></h5>
+                        <p class="card-text">{{ business.description|truncatechars:100 }}</p>
+                        <p class="card-text"><strong>Category:</strong> {{ business.category.name }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No businesses found.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="businessDetailModal" tabindex="-1" role="dialog" aria-labelledby="businessDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="business-detail-content">
+                <!-- Content will be loaded here by AJAX -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.business-detail-link').on('click', function(e) {
+                e.preventDefault();
+                var businessId = $(this).data('id');
+                $.ajax({
+                    url: '{% url "businesses:business_detail_ajax" %}',
+                    data: {
+                        'id': businessId
+                    },
+                    success: function(data) {
+                        $('#business-detail-content').html(data);
+                        $('#businessDetailModal').modal('show');
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

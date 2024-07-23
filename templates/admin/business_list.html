@@ -1,0 +1,21 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h2>Business List (Admin)</h2>
+
+    <a href="{% url 'admin_businesses:admin_business_create' %}" class="btn btn-primary">Add New Business</a>
+
+    <ul>
+        {% for business in businesses %}
+            <li>
+                <h3><a href="{% url 'admin_businesses:admin_business_detail' business.pk %}">{{ business.name }}</a></h3>
+                <p>{{ business.description|slice:":200" }}{% if business.description|length > 200 %}...{% endif %}</p>
+                <p><strong>Category:</strong> {{ business.category.name }}</p>
+                <p>
+                    <a href="{% url 'admin_businesses:admin_business_update' business.pk %}">Edit</a> |
+                    <a href="{% url 'admin_businesses:admin_business_delete' business.pk %}">Delete</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

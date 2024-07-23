@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Business Details (Admin)</h2>
+
+<h3>{{ business.name }}</h3>
+<p>Category: {{ business.category }}</p>
+<p>Owner: {{ business.owner }}</p>
+<p>Description: {{ business.description }}</p>
+
+{% if business.image %}
+    <img src="{{ business.image.url }}" alt="{{ business.name }}" class="img-fluid mb-3">
+{% endif %}
+
+<h3>Reviews:</h3>
+<div class="row">
+    {% for review in reviews %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    Rating:
+                    {% for i in "x"|rjust:review.rating %}
+                        <i class="fas fa-star text-warning"></i>
+                    {% endfor %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ review.user }}</h5>
+                    <p class="card-text">{{ review.comment }}</p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No reviews yet.</p>
+    {% endfor %}
+</div>
+
+<h3>Actions:</h3>
+<a href="{% url 'admin_businesses:admin_business_update' business.pk %}" class="btn btn-primary">Edit Business</a>
+<a href="{% url 'admin_businesses:admin_business_delete' business.pk %}" class="btn btn-danger">Delete Business</a>
+<br>
+<a href="{% url 'admin_businesses:admin_business_list' %}" class="btn btn-secondary mt-3">Back to Business List</a>
+
+{% endblock content %}
