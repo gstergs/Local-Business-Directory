@@ -5,6 +5,7 @@
 {% block content %}
 <div class="container">
     <h2>You have been logged out</h2>
+    <!-- Links for logging back in or returning to home page -->
     <p><a href="{% url 'accounts:login' %}">Login again</a> or <a href="{% url 'home' %}">return to home</a>.</p>
 </div>
 {% endblock %}

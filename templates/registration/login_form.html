@@ -3,11 +3,13 @@
 {% block content %}
 <div class="container">
     <h2>Login</h2>
+    <!-- Login form starts -->
     <form method="post" action="{% url 'accounts:login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
+        {% csrf_token %} <!-- CSRF token for security -->
+        {{ form.as_p }} <!-- Render form fields as paragraphs -->
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    <!-- Link to signup page for new users -->
     <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up here</a></p>
 </div>
 {% endblock %}

@@ -3,24 +3,24 @@
 {% block content %}
     <h2>Business List (Admin)</h2>
 
-    <a href="{% url 'admin_businesses:admin_business_create' %}" class="btn btn-primary">Add New Business</a>
+    <a href="{% url 'admin_businesses:admin_business_create' %}" class="btn btn-primary">Add New Business</a> <!-- Button to add a new business -->
 
     <ul>
         {% for business in businesses %}
             <li>
-                <h3><a href="{% url 'admin_businesses:admin_business_detail' business.pk %}">{{ business.name }}</a></h3>
-                <p>{{ business.description|slice:":200" }}{% if business.description|length > 200 %}...{% endif %}</p>
-                <p><strong>Category:</strong> {{ business.category.name }}</p>
+                <h3><a href="{% url 'admin_businesses:admin_business_detail' business.pk %}">{{ business.name }}</a></h3> <!-- Business name with link to detail view -->
+                <p>{{ business.description|slice:":200" }}{% if business.description|length > 200 %}...{% endif %}</p> <!-- Truncated business description -->
+                <p><strong>Category:</strong> {{ business.category.name }}</p> <!-- Business category -->
                 {% if business.image %}
-                    <img src="{{ business.image.url }}" alt="{{ business.name }}" style="max-width: 150px; height: auto;">
+                    <img src="{{ business.image.url }}" alt="{{ business.name }}" style="max-width: 150px; height: auto;"> <!-- Business image -->
                 {% endif %}
                 <p>
-                    <a href="{% url 'admin_businesses:admin_business_update' business.pk %}">Edit</a> |
-                    <a href="{% url 'admin_businesses:admin_business_delete' business.pk %}">Delete</a>
+                    <a href="{% url 'admin_businesses:admin_business_update' business.pk %}">Edit</a> | <!-- Edit business link -->
+                    <a href="{% url 'admin_businesses:admin_business_delete' business.pk %}">Delete</a> <!-- Delete business link -->
                 </p>
             </li>
         {% empty %}
-            <p>No businesses found.</p>
+            <p>No businesses found.</p> <!-- Message when no businesses are present -->
         {% endfor %}
     </ul>
 {% endblock %}

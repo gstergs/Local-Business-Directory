@@ -1,14 +1,14 @@
 {% extends 'base_generic.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags %} <!-- Load crispy_forms tags for rendering forms -->
 
 {% block title %}Add or Edit Business{% endblock %}
 
 {% block content %}
-    <h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Business</h2>
+    <h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Business</h2> <!-- Display edit or add title based on form instance -->
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Submit</button>
+        {% csrf_token %} <!-- CSRF token for form protection -->
+        {{ form|crispy }} <!-- Render form with crispy_forms -->
+        <button type="submit" class="btn btn-primary">Submit</button> <!-- Submit button -->
     </form>
-    <a href="{% url 'admin_businesses:admin_business_list' %}" class="btn btn-secondary mt-3">Back to Business List</a>
+    <a href="{% url 'admin_businesses:admin_business_list' %}" class="btn btn-secondary mt-3">Back to Business List</a> <!-- Back to business list button -->
 {% endblock %}

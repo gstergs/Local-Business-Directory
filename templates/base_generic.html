@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title block, can be overridden in child templates -->
     <title>{% block title %}My Business Directory{% endblock %}</title>
     {% load static %}
+    <!-- Link to custom stylesheet -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Bootstrap CSS for styling -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -32,11 +35,12 @@
                     <!-- Logout Form -->
                     <li class="nav-item">
                         <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
-                            {% csrf_token %}
+                            {% csrf_token %} <!-- CSRF token for security -->
                             <button type="submit" class="btn btn-link text-purple">Logout</button>
                         </form>
                     </li>
                 {% else %}
+                    <!-- Login button that triggers modal -->
                     <li class="nav-item">
                         <button type="button" class="btn btn-deep-blue" id="loginBtn">Login</button>
                     </li>
@@ -45,7 +49,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Main Content Block -->
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
@@ -62,8 +66,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <!-- Inline login form for modal -->
                     <form method="post" id="loginForm">
-                        {% csrf_token %}
+                        {% csrf_token %} <!-- CSRF token for security -->
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required>
@@ -87,30 +92,32 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JavaScript -->
     <script>
         $(document).ready(function() {
+            // Show the login modal when the login button is clicked
             $('#loginBtn').click(function() {
-                $('#loginModal').modal('show'); // Show the login modal
+                $('#loginModal').modal('show');
             });
 
+            // Handle form submission via AJAX
             $('#loginForm').on('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission
+                event.preventDefault(); // Prevent default form submission
 
                 $.ajax({
                     type: 'POST',
-                    url: '{% url "accounts:ajax_login" %}', // Use AJAX login URL
-                    data: $(this).serialize(), // Serialize the form data
+                    url: '{% url "accounts:ajax_login" %}', // URL for AJAX login
+                    data: $(this).serialize(), // Serialize form data
                     success: function(response) {
                         if (response.status === 'success') {
-                            window.location.reload(); // Reload the page on successful login
+                            window.location.reload(); // Reload page on successful login
                         } else {
-                            $('#loginError').text(response.message).show(); // Show error message
+                            $('#loginError').text(response.message).show(); // Display error message
                         }
                     },
                     error: function(xhr, status, error) {
-                        $('#loginError').text('An unexpected error occurred.').show(); // Show error message
+                        $('#loginError').text('An unexpected error occurred.').show(); // Display general error message
                     }
                 });
             });

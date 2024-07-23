@@ -5,12 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title block, can be overridden in child templates -->
     <title>{% block title %}Admin Dashboard - My Business Directory{% endblock %}</title>
+    <!-- Link to custom stylesheet -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Bootstrap CSS for styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
+    <!-- Header section -->
     <header class="bg-dark text-white py-3">
         <div class="container">
             <h1 class="d-inline">Admin Dashboard</h1>
@@ -20,16 +25,19 @@
                     
                     {% if user.is_authenticated %}
                         {% if user.is_superuser %}
+                            <!-- Links available for superusers -->
                             <li class="nav-item"><a class="nav-link text-white" href="{% url 'businesses:admin_business_list' %}">Business List</a></li>
                             <li class="nav-item"><a class="nav-link text-white" href="{% url 'businesses:admin_business_create' %}">Add Business</a></li>
                         {% endif %}
+                        <!-- Logout form -->
                         <li class="nav-item">
                             <form method="post" action="{% url 'accounts:logout' %}" class="form-inline">
-                                {% csrf_token %}
+                                {% csrf_token %} <!-- CSRF token for security -->
                                 <button type="submit" class="btn btn-link text-white">Logout</button>
                             </form>
                         </li>
                     {% else %}
+                        <!-- Link to login, opens modal -->
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{% url 'accounts:login' %}" data-toggle="modal" data-target="#loginModal">Login</a>
                         </li>
@@ -39,15 +47,18 @@
         </div>
     </header>
 
+    <!-- Main content block -->
     <main class="container my-4">
         {% block content %}
         {% endblock %}
     </main>
 
+    <!-- Footer section -->
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 My Business Directory</p>
     </footer>
 
+    <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -58,6 +69,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <!-- Include login form in the modal -->
                     {% include 'registration/login.html' %}
                 </div>
                 <div class="modal-footer">
@@ -67,9 +79,10 @@
         </div>
     </div>
 
-    <script src="{% static 'js/script.js' %}"></script> 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="{% static 'js/script.js' %}"></script> <!-- Custom JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script> <!-- Popper.js for tooltips and popovers -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JavaScript -->
 </body>
 </html>

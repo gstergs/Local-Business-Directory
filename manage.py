@@ -5,8 +5,10 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    # Set the default settings module for Django
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Local_business_directory.settings')
     try:
+        # Import and execute Django's command-line utility
         from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(

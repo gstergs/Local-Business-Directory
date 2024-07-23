@@ -1,16 +1,16 @@
 {% extends 'base_generic.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags %} <!-- Load crispy_forms tags for rendering forms -->
 
 {% block content %}
 <h2>Business Details (Admin)</h2>
 
-<h3>{{ business.name }}</h3>
-<p>Category: {{ business.category }}</p>
-<p>Owner: {{ business.owner }}</p>
-<p>Description: {{ business.description }}</p>
+<h3>{{ business.name }}</h3> <!-- Business name -->
+<p>Category: {{ business.category }}</p> <!-- Business category -->
+<p>Owner: {{ business.owner }}</p> <!-- Business owner -->
+<p>Description: {{ business.description }}</p> <!-- Business description -->
 
 {% if business.image %}
-    <img src="{{ business.image.url }}" alt="{{ business.name }}" class="img-fluid mb-3">  
+    <img src="{{ business.image.url }}" alt="{{ business.name }}" class="img-fluid mb-3"> <!-- Business image -->
 {% endif %}
 
 <h3>Reviews:</h3>
@@ -21,24 +21,24 @@
                 <div class="card-header">
                     Rating:
                     {% for i in "x"|rjust:review.rating %}
-                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i> <!-- Star rating -->
                     {% endfor %}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ review.user }}</h5>
-                    <p class="card-text">{{ review.comment }}</p>
+                    <h5 class="card-title">{{ review.user }}</h5> <!-- Reviewer's username -->
+                    <p class="card-text">{{ review.comment }}</p> <!-- Review comment -->
                 </div>
             </div>
         </div>
     {% empty %}
-        <p>No reviews yet.</p>
+        <p>No reviews yet.</p> <!-- Message when no reviews are present -->
     {% endfor %}
 </div>
 
 <h3>Actions:</h3>
-<a href="{% url 'admin_businesses:admin_business_update' business.pk %}" class="btn btn-primary">Edit Business</a>
-<a href="{% url 'admin_businesses:admin_business_delete' business.pk %}" class="btn btn-danger">Delete Business</a>
+<a href="{% url 'admin_businesses:admin_business_update' business.pk %}" class="btn btn-primary">Edit Business</a> <!-- Edit business button -->
+<a href="{% url 'admin_businesses:admin_business_delete' business.pk %}" class="btn btn-danger">Delete Business</a> <!-- Delete business button -->
 <br>
-<a href="{% url 'admin_businesses:admin_business_list' %}" class="btn btn-secondary mt-3">Back to Business List</a>
+<a href="{% url 'admin_businesses:admin_business_list' %}" class="btn btn-secondary mt-3">Back to Business List</a> <!-- Back to business list button -->
 
 {% endblock content %}

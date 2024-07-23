@@ -1,9 +1,12 @@
+# forms.py
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit
 from .models import CustomUser
 
+# Custom form for user creation
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,6 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ('username', 'email', 'password1', 'password2')
 
+# Custom form for user updates
 class CustomUserChangeForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,6 +38,7 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = ('username', 'email')
 
+# Custom form for user login
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(max_length=63, widget=forms.TextInput(attrs={'autofocus': True}))
     password = forms.CharField(widget=forms.PasswordInput)

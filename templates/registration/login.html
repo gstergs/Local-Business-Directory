@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - My Business Directory</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
 </head>
 <body>
 
@@ -20,20 +20,23 @@
                     <h2 class="text-center">Login</h2>
                 </div>
                 <div class="card-body">
+                    <!-- Display error message if form has errors -->
                     {% if form.errors %}
                         <div class="alert alert-danger">
                             Your username and password didn't match. Please try again.
                         </div>
                     {% endif %}
 
+                    <!-- Login form starts -->
                     <form method="post" action="{% url 'accounts:login' %}">  
-                        {% csrf_token %}
-                        {{ form|crispy }}  
+                        {% csrf_token %} <!-- CSRF token for security -->
+                        {{ form|crispy }} <!-- Render form using Crispy Forms for better layout -->
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </form>
                     
                     <hr>
 
+                    <!-- Link to signup page for new users -->
                     <div class="text-center">
                         <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up here</a></p>
                     </div>

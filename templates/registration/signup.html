@@ -6,11 +6,13 @@
 {% block content %}
 <div class="container">
     <h2>Sign Up</h2>
+    <!-- Signup form starts -->
     <form method="post" action="{% url 'accounts:signup' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
+        {% csrf_token %} <!-- CSRF token for security -->
+        {{ form|crispy }} <!-- Render form using Crispy Forms for better layout -->
         <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
+    <!-- Link to login page for existing users -->
     <p>Already have an account? <a href="{% url 'accounts:login' %}">Login here</a></p>
 </div>
 {% endblock %}
