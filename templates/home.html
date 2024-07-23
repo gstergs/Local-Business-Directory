@@ -1,34 +1,42 @@
 {% extends 'base_generic.html' %}
 
+{% load static %}
+
 {% block content %}
-<header class="bg-primary text-white text-center py-5">
+<header class="bg-orange text-purple text-center py-5">
     <div class="container">
         <h1>Welcome to My Business Directory</h1>
         <p>Your one-stop shop for finding local businesses. Explore our directory to discover various services and products offered in your area.</p>
-        <a href="{% url 'businesses:business_list' %}" class="btn btn-light btn-lg">Explore Businesses</a>
+        <a href="{% url 'businesses:public_list' %}" class="btn btn-deep-blue btn-lg text-purple">Explore Businesses</a>
     </div>
 </header>
 
-<main class="container my-5">
+<main class="container my-5 bg-orange p-4">
     <section>
         <h2>Featured Businesses</h2>
-        <ul class="list-unstyled">
+        <div class="row">
             {% for business in featured_businesses %}
-                <li class="media mb-4">
-                    {% if business.image %}
-                        <img src="{{ business.image.url }}" class="mr-3" alt="{{ business.name }}" style="width: 100px; height: 100px; object-fit: cover;">
-                    {% endif %}
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">
-                            <a href="{% url 'businesses:business_detail' business.pk %}">{{ business.name }}</a>  
-                        </h5>
-                        <p>{{ business.description|slice:":100" }}...</p>
+                <div class="col-md-4 mb-4">
+                    <div class="business-card">
+                        {% if business.image %}
+                            <img src="{{ business.image.url }}" class="card-img-top" alt="{{ business.name }}" style="width: 100%; height: auto; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'images/default_image.png' %}" class="card-img-top" alt="Default Image" style="width: 100%; height: auto; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'businesses:business_detail' business.pk %}" class="text-purple">{{ business.name }}</a>
+                            </h5>
+                            <p class="card-text">{{ business.description|slice:":100" }}...</p>
+                        </div>
                     </div>
-                </li>
+                </div>
             {% empty %}
-                <li>No featured businesses at the moment.</li>
+                <div class="col-12">
+                    <p>No featured businesses at the moment.</p>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </section>
 
     <section>
@@ -49,7 +57,7 @@
         <ul class="list-unstyled">
             {% for category in categories %}
                 <li>
-                    <a href="{% url 'businesses:business_list' %}?category={{ category.id }}">{{ category.name }}</a>
+                    <a href="{% url 'businesses:public_list' %}?category={{ category.id }}" class="text-purple">{{ category.name }}</a>
                 </li>
             {% empty %}
                 <li>No categories available.</li>
@@ -57,6 +65,4 @@
         </ul>
     </section>
 </main>
-
 {% endblock %}
-

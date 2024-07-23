@@ -1,13 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'base_generic.html' %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h2>Business Details (Admin)</h2>
-
-<h3>{{ business.name }}</h3>
+<h2>{{ business.name }}</h2>
 <p>Category: {{ business.category }}</p>
 <p>Owner: {{ business.owner }}</p>
 <p>Description: {{ business.description }}</p>
+<p><strong>Location:</strong> {{ business.location }}</p> <!-- Display location -->
 
 {% if business.image %}
     <img src="{{ business.image.url }}" alt="{{ business.name }}" class="img-fluid mb-3">
@@ -35,10 +34,21 @@
     {% endfor %}
 </div>
 
-<h3>Actions:</h3>
-<a href="{% url 'admin_businesses:admin_business_update' business.pk %}" class="btn btn-primary">Edit Business</a>
-<a href="{% url 'admin_businesses:admin_business_delete' business.pk %}" class="btn btn-danger">Delete Business</a>
-<br>
-<a href="{% url 'admin_businesses:admin_business_list' %}" class="btn btn-secondary mt-3">Back to Business List</a>
+{% if user.is_authenticated %}
+    <h3>Submit a Review:</h3>
+    <form method="post" action="{% url 'businesses:submit_review' business.id %}">
+        {% csrf_token %}
+        {{ review_form|crispy }}
+        <button type="submit" class="btn btn-deep-blue">Submit Review</button>
+    </form>
 
-{% endblock content %}
+    {% if business in user.wishlist.businesses.all %}
+        <a href="{% url 'businesses:remove_from_wishlist' business.id %}" class="btn btn-danger">Remove from Wishlist</a>
+    {% else %}
+        <a href="{% url 'businesses:add_to_wishlist' business.id %}" class="btn btn-deep-blue">Add to Wishlist</a>
+    {% endif %}
+{% endif %}
+
+<a href="{% url 'businesses:public_list' %}" class="btn btn-secondary mt-3">Back to Business List</a>
+
+{% endblock %}

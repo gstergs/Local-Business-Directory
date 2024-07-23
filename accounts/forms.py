@@ -12,14 +12,12 @@ class CustomUserCreationForm(UserCreationForm):
         self.helper.layout = Layout(
             Field('username', css_class='form-control'),
             Field('email', css_class='form-control'),
-            Field('is_user', css_class='form-check-input'),
-            Field('is_admin', css_class='form-check-input'),
             Submit('submit', 'Sign up', css_class='btn btn-primary')
         )
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'email', 'is_user', 'is_admin')
+        fields = ('username', 'email', 'password1', 'password2')
 
 class CustomUserChangeForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
@@ -29,14 +27,12 @@ class CustomUserChangeForm(UserChangeForm):
         self.helper.layout = Layout(
             Field('username', css_class='form-control'),
             Field('email', css_class='form-control'),
-            Field('is_user', css_class='form-check-input'),
-            Field('is_admin', css_class='form-check-input'),
             Submit('submit', 'Update', css_class='btn btn-primary')
         )
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'is_user', 'is_admin')
+        fields = ('username', 'email')
 
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(max_length=63, widget=forms.TextInput(attrs={'autofocus': True}))

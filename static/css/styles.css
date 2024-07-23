@@ -1,111 +1,193 @@
-/* Base styling for the entire page */
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #b8b5b5; /* Light gray background for entire page */
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Header styling */
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-}
-
-/* Navigation styling */
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
+a {
     text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 4px;
+    color: #6a0d91; /* Purple links */
 }
 
-nav ul li a:hover {
-    background-color: #555;
+a:hover {
+    color: #F89406; /* Orange link color on hover */
 }
 
-/* Main content styling */
-main {
-    padding: 20px;
+/* Container */
+.container {
     max-width: 1200px;
-    margin: 20px auto;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* Footer styling */
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+/* Taskbar */
+.navbar {
+    margin-bottom: 20px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
+.navbar-light {
+    background-color: #6a0d91; /* Purple background for taskbar */
 }
 
-/* Business list styling */
-.business-list {
-    margin: 20px 0;
+.navbar-nav .nav-link {
+    color: #ffffff; /* White text color for nav links */
 }
 
-.business-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.navbar-nav .nav-link:hover {
+    color: #f5f5f5; /* Light color on hover */
 }
 
-.business-list li {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+/* Buttons */
+.btn-deep-blue {
+    background-color: #007bff; /* Blue background for buttons */
+    color: white; /* White text color */
+    border: none;
 }
 
-.business-list h3 {
-    margin: 0;
-    font-size: 1.2em;
+.btn-deep-blue:hover {
+    background-color: #0056b3; /* Darker blue background on hover */
 }
 
-.business-list p {
-    margin: 5px 0;
+.btn-purple {
+    background-color: #6a0d91; /* Purple background for buttons */
+    color: white; /* White text color */
+    border: none;
 }
 
-.business-list .btn {
+.btn-purple:hover {
+    background-color: #5a0b80; /* Darker purple background on hover */
+}
+
+/* Header */
+.bg-orange {
+    background-color: #F89406; /* Orange background */
+}
+
+.text-purple {
+    color: #6a0d91; /* Purple text color */
+}
+
+/* Featured Businesses Section */
+.featured-businesses {
+    text-align: center; /* Center the text */
+    margin-bottom: 20px;
+}
+
+.featured-businesses-box {
+    background-color: #FFFFFF; /* White background */
+    border: 1px solid #F89406; /* Orange border */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.featured-businesses-box h2 {
+    color: #F89406; /* Orange text color */
+}
+
+/* Latest Reviews and Categories Section */
+.latest-reviews,
+.categories {
     display: inline-block;
-    padding: 10px 15px;
-    background-color: #333;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.latest-reviews {
+    width: calc(50% - 10px); /* Adjust the width as needed */
+}
+
+.categories {
+    width: calc(50% - 10px); /* Adjust the width as needed */
+}
+
+.categories h3 {
+    font-size: 1.5em; /* Increase font size for categories */
+}
+
+/* Full-width Welcome Message */
+.welcome-message {
+    background-color: #f5f5f5;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+/* Business Cards */
+.business-card {
+    background-color: #f5f5f5; /* Light gray background for cards */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.business-card img {
+    width: 100%;
+    height: auto;
+}
+
+.business-card .card-body {
+    padding: 20px;
+}
+
+.business-card h5 {
+    margin: 0;
+    color: #6a0d91; /* Purple title */
+}
+
+.business-card p {
     margin: 10px 0;
 }
 
-.business-list .btn:hover {
-    background-color: #555;
+/* Modal Styles */
+.modal-content {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-footer {
+    border-top: 1px solid #ddd;
+}
+
+.modal-header .close {
+    color: #6a0d91; /* Purple close button */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-nav .nav-link {
+        margin: 10px 0;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    /* Adjustments for Latest Reviews and Categories on smaller screens */
+    .latest-reviews,
+    .categories {
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
 }

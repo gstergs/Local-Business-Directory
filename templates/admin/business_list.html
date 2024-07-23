@@ -11,11 +11,16 @@
                 <h3><a href="{% url 'admin_businesses:admin_business_detail' business.pk %}">{{ business.name }}</a></h3>
                 <p>{{ business.description|slice:":200" }}{% if business.description|length > 200 %}...{% endif %}</p>
                 <p><strong>Category:</strong> {{ business.category.name }}</p>
+                {% if business.image %}
+                    <img src="{{ business.image.url }}" alt="{{ business.name }}" style="max-width: 150px; height: auto;">
+                {% endif %}
                 <p>
                     <a href="{% url 'admin_businesses:admin_business_update' business.pk %}">Edit</a> |
                     <a href="{% url 'admin_businesses:admin_business_delete' business.pk %}">Delete</a>
                 </p>
             </li>
+        {% empty %}
+            <p>No businesses found.</p>
         {% endfor %}
     </ul>
 {% endblock %}

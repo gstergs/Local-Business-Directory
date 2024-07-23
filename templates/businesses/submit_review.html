@@ -1,0 +1,15 @@
+{% extends 'base_generic.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Submit a Review for {{ business.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
+
+<a href="{% url 'businesses:business_detail' business.pk %}" class="btn btn-secondary mt-3">Back to Business Details</a>
+
+{% endblock %}

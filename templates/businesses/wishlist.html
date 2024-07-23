@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h2>My Wishlist</h2>
+    <ul>
+        {% for business in businesses %}
+            <li>
+                <h3>{{ business.name }}</h3>
+                <p>{{ business.description }}</p>
+                <a href="{% url 'businesses:business_detail' business.id %}" class="btn btn-info">View</a>
+                <a href="{% url 'businesses:remove_from_wishlist' business.id %}" class="btn btn-danger">Remove</a>
+            </li>
+        {% empty %}
+            <li>No businesses in your wishlist yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

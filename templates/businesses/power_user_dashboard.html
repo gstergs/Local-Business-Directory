@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power User Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Main Navigation or Task Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">My Business Directory</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'businesses:public_list' %}">Businesses</a>
+                </li>
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'businesses:admin_business_list' %}">Admin Dashboard</a>
+                        </li>
+                    {% endif %}
+                    {% if user|has_perm:'businesses.add_business' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'businesses:power_user_dashboard' %}">Power User Dashboard</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'businesses:wishlist' %}">Wishlist</a>
+                    </li>
+                    <!-- Logout Form -->
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" id="loginBtn">Login</button>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <h1>Power User Dashboard</h1>
+        <a href="{% url 'businesses:admin_business_create' %}" class="btn btn-primary">Add New Business</a>
+        <h2>Manage Your Businesses</h2>
+        <ul class="list-group">
+            {% for business in businesses %}
+                <li class="list-group-item">
+                    <a href="{% url 'businesses:admin_business_update' business.pk %}">{{ business.name }}</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">You don't have any businesses yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
